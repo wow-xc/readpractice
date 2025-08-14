@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수능 독서지문  랜덤 추출</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .passage-container {
+            min-height: 500px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .passage-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <!--  헤더 -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-book-open text-blue-500 mr-2"></i>
+                수능 독서지문  랜덤 추출
+            </h1>
+            <p class="text-gray-600 text-lg">
+                버튼을 클릭하면 랜덤한 수능 독서지문이 나타납니다
+            </p>
+        </header>
+        
+        <!-- 메인  컨텐츠 -->
+        <main class="max-w-4xl mx-auto">
+            <!-- 추출 버튼 -->
+            <div class="flex justify-center mb-8">
+                <button id="extractBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 transform hover:scale-105 flex items-center">
+                    <i class="fas fa-random mr-2"></i>
+                    독서지문 추출하기
+                </button>
+            </div>
+            
+            <!-- 지문 표시 영역 -->
+            <div class="passage-container p-6 md:p-8 mb-8 flex flex-col items-center justify-center fade-in">
+                <div id="passageContent" class="text-center">
+                    <div class="text-gray-500 mb-4">
+                        <i class="fas fa-arrow-up text-2xl"></i>
+                        <p class="mt-2">위 버튼을 눌러 독서지문을 추출하세요</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 정보 표시 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    사용 방법
+                </h3>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li>'독서지문 추출하기' 버튼을 클릭하면 랜덤한 평가원 기출 독서지문이 표시됩니다</li>
+                    <li>지문은 실제 고3 6월/9월/수능 기출문제에서 추출되었습니다</li>
+                    <li>랜덤으로 추출된 지문을 읽어내는 실력을 길러보세요!</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 독서지문 이미지 URL 배열 (실제로는 더 많은 이미지가 필요함)
+        const passageImages = [
+            "독서지문/1.png",
+            "독서지문/2.png",
+            "독서지문/3.png",
+            "독서지문/4.png",
+            "독서지문/5.png",
+            "독서지문/6.png",
+            "독서지문/7.png",
+            "독서지문/8.png",
+            "독서지문/9.png",
+            "독서지문/10.png",
+            "독서지문/11.png",
+            "독서지문/12.png",
+            "독서지문/13.png",
+            "독서지문/14.png",
+            "독서지문/15.png",
+            "독서지문/16.png",
+            "독서지문/17.png",
+            "독서지문/18.png",
+            "독서지문/19.png",
+            "독서지문/20.png",
+            "독서지문/21.png",
+            "독서지문/22.png",
+            "독서지문/23.png",
+            "독서지문/24.png",
+            "독서지문/25.png"
+        ];
+
+        
+        // 추출 버튼 클릭 이벤트
+        document.getElementById('extractBtn').addEventListener('click', function() {
+            const passageContent = document.getElementById('passageContent');
+            
+            // 로딩 상태 표시
+            passageContent.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+                    <p class="text-gray-600">독서지문을 불러오는 중...</p>
+                </div>
+            `;
+            
+            // 0.5초 후에 지문 표시 (로딩 효과를 위해)
+            setTimeout(() => {
+                // 덤한 지문 선택
+                const randomIndex = Math.floor(Math.random() * passageImages.length);
+                const selectedPassage = passageImages[randomIndex];
+                
+                // 지문 표시
+                passageContent.innerHTML = `
+                    <img src="${selectedPassage}" alt="수능 독서지문" class="passage-image mx-auto">
+                    <p class="mt-4 text-sm text-gray-500">
+                        <i class="fas fa-sync-alt mr-1"></i>
+                        버튼을 다시 누르면 다른 지문이 나타납니다
+                    </p>
+                `;
+                
+                // 애니메이션 효과를 위해 클래스 추가
+                passageContent.classList.add('fade-in');
+                
+                // 애니메이션 후 클래스 제거
+                setTimeout(() => {
+                    passageContent.classList.remove('fade-in');
+                }, 500);
+                
+            }, 500);
+        });
+    </script>
+</body>
+</html>
